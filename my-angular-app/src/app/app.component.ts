@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SearchService } from './search.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  data: any[] = []; // Assuming your data structure is an array
+  data: any[] = [];
   dataAvailable: boolean = false;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private searchService: SearchService) {}
 
   // Function to simulate fetching data from the PS4 backend
   fetchData() {
@@ -24,5 +25,13 @@ export class AppComponent {
         this.data = response.data;
         this.dataAvailable = true;
       });
+  }
+
+  // Function to handle search using the new SearchService
+  search(searchTerm: string) {
+    this.searchService.search(searchTerm).subscribe(response => {
+      this.data = response.data;
+      this.dataAvailable = true;
+    });
   }
 }
