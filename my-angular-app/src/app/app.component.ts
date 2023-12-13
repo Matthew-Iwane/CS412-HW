@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-angular-app';
+  data: any[] = []; // Assuming your data structure is an array
+  dataAvailable: boolean = false;
+
+  constructor(private httpClient: HttpClient) {}
+
+  // Function to simulate fetching data from the PS4 backend
+  fetchData() {
+    // Replace with your actual backend API endpoint
+    const ps4BackendEndpoint = 'http://localhost:3000/ps4';
+
+    // Simulate fetching data from the PS4 backend
+    this.httpClient.post<any>(ps4BackendEndpoint, { searchString: 'example' })
+      .subscribe(response => {
+        // Update data and set dataAvailable flag
+        this.data = response.data;
+        this.dataAvailable = true;
+      });
+  }
 }
