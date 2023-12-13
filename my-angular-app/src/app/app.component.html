@@ -1,13 +1,16 @@
-<!-- src/app/app.component.html -->
-<div *ngIf="isDataAvailable">
-  <h2>Data from PS4 Backend</h2>
-  <ul>
-    <li *ngFor="let item of data">{{ item.name }}</li>
-  </ul>
-</div>
+<div>
+  <h1>Data from PS4 Backend</h1>
 
-<div *ngIf="!isDataAvailable">
-  <p>Data is not available. Click the button below to fetch it.</p>
-</div>
+  <!-- Button to simulate fetching data -->
+  <button (click)="fetchData()">Fetch Data</button>
 
-<button (click)="fetchDataFromBackend()">Fetch Data from PS4 Backend</button>
+  <!-- Display data when available using *ngIf -->
+  <div *ngIf="dataAvailable">
+    <div *ngFor="let item of data">
+      <!-- Display your data properties here, adjust as per your actual data structure -->
+      <p>{{ item.title }}</p>
+      <p>{{ item.body }}</p>
+      <!-- Add more properties as needed -->
+    </div>
+  </div>
+</div>
